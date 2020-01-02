@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Draw</title>
+</head>
+<body>
+    <canvas id='draw' style="background:#f1f1f1"></canvas>
+    <a href="./pacman.html">Ir para Pacman</a>
+</body>
+<script>
+window.onload = () => {
+    const width = 500
+    const height = 300
+
+    let draw = document.getElementById('draw')
+    draw.setAttribute("width", width)
+    draw.setAttribute("height", height)
+
+    let canvasDrawer = draw.getContext("2d")
+
+    let drawing = false
+
+    //draw.onmouseenter = () => draw.style.background = '#f1f1f1'
+
+    //draw.onmouseleave= () => draw.style.background = '#222'
+
+    draw.onmousedown = evt => {
+        canvasDrawer.moveTo(evt.clientX, evt.clientY)
+        drawing = true
+    }
+
+    draw.onmouseup = evt => drawing = false
+
+    draw.onmousemove = evt => {
+        if (drawing) {
+            canvasDrawer.lineTo(evt.clientX, evt.clientY)
+            canvasDrawer.stroke()
+        }
+    }
+}
+</script>
+</html>

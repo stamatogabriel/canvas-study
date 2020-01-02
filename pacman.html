@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+        canvas {
+            width: 600px;
+            height: 300px;
+            background: #222;
+        }
+    </style>
+    <title>Document</title>
+</head>
+
+<body>
+    <canvas id='pacman'></canvas>
+    <a href="./draw.html">Ir para Draw</a>
+</body>
+<script>
+    window.onload = () => {
+        const stage = document.getElementById('pacman')
+        const canvas = stage.getContext("2d")
+
+        let w = stage.width
+        let h = stage.height
+        const raio = 30
+        let angle = 1
+        const limit = 40
+        const colorPacMan = "yellow"
+        let oppening = true
+        const interval = 10
+
+        function draw() {
+            canvas.fillStyle = "#222"
+            canvas.strokeStyle = "#222"
+            canvas.lineWidth = 30
+            canvas.arc(w / 2, h / 2, raio, 0, Math.PI * 2)
+            canvas.stroke()
+            canvas.fill()
+
+            const ang = (Math.PI / 180) * angle
+
+            canvas.beginPath();
+            canvas.fillStyle = colorPacMan
+            canvas.strokeStyle = colorPacMan
+            canvas.lineWidth = 40
+            canvas.arc(w / 2, h / 2, raio - 10, ang, -ang)
+            canvas.stroke()
+
+        }
+
+        function animate() {
+            setInterval(() => {
+                draw()
+                oppening ? ++angle : --angle
+
+                if (angle <= 1 || angle >= limit) oppening = angle <= 1 ? true : false
+            }, interval)
+        }
+
+        window.onkeydown = (evt) => {
+            if (evt.keyCode == 13)
+                animate()
+        }
+    }
+
+</script>
+
+</html>
